@@ -1,0 +1,89 @@
+:root {
+  --bg: #050505;
+  --text: #e8e8e8;
+  --muted: #9a9a9a;
+  --line: rgba(255, 255, 255, .12);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { background: var(--bg); -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+
+body {
+  min-height: 100vh;
+  background:
+    radial-gradient(ellipse at 50% 0%, #15151a 0%, rgba(5, 5, 5, 0) 60%),
+    var(--bg);
+  color: var(--text);
+  font-family: 'Inter', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Всё по центру страницы */
+.page {
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: max(56px, env(safe-area-inset-top)) max(20px, env(safe-area-inset-right)) max(72px, env(safe-area-inset-bottom)) max(20px, env(safe-area-inset-left));
+}
+
+.title {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-size: clamp(2.6rem, 9vw, 4.2rem);
+  letter-spacing: .12em;
+  text-align: center;
+  color: #fff;
+  text-shadow: 0 0 22px rgba(255, 255, 255, .18);
+  margin-bottom: 32px;
+}
+
+.photo {
+  display: block;
+  width: min(86vw, 340px);
+  height: auto;
+  border-radius: 16px;               /* скругление углов: меняй число */
+  border: 1px solid var(--line);
+  box-shadow: 0 10px 50px rgba(0, 0, 0, .8);
+  margin-bottom: 36px;
+}
+
+/* Список: блок стоит по центру, а строки внутри него начинаются с одного уровня.
+   Сколько бы строк ни добавил — блок сам подстроится и не съедет. */
+.info {
+  width: fit-content;
+  max-width: 100%;
+  margin: 0 auto;
+  text-align: left;
+  white-space: pre-wrap;             /* сохраняет пробелы и переносы строк */
+  overflow-wrap: anywhere;
+  font-family: inherit;
+  font-size: 1rem;
+  line-height: 1.75;
+  color: var(--text);
+  tab-size: 4;
+}
+
+/* плавное появление (включается скриптом) */
+.reveal { opacity: 0; transform: translateY(14px); transition: opacity .8s ease, transform .8s ease; }
+.reveal.show { opacity: 1; transform: none; }
+
+/* Телефоны */
+@media (max-width: 480px) {
+  .page { padding-top: 40px; }
+  .title { margin-bottom: 24px; }
+  .photo { width: min(88vw, 320px); margin-bottom: 28px; }
+  .info { font-size: .95rem; line-height: 1.7; }
+}
+@media (max-width: 480px) and (hover: none) {
+  .info { -webkit-touch-callout: default; }
+}
+/* Телефон в горизонтальном положении */
+@media (max-height: 500px) and (orientation: landscape) {
+  .photo { width: min(40vw, 240px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal { transition: none; opacity: 1; transform: none; }
+}
